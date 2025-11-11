@@ -76,10 +76,10 @@ const ARANWebsite = () => {
   const translation = translations[lang];
 
   const videos = [
-    "../assets/civil.mp4",
-    "/assets/electrical.mp4",
-    "/assets/mechanical.mp4",
-    "/assets//security.mp4",
+    "../media/civil.mp4",
+    "/media/electrical.mp4",
+    "/media/mechanical.mp4",
+    "/media//security.mp4",
   ];
 
   useEffect(() => {
@@ -256,7 +256,7 @@ const ARANWebsite = () => {
         >
           <Box
             component="img"
-            src="/assets/logo-2.png"
+            src="/logos/logo-full.png"
             alt="ARAN Logo"
             sx={{
               width: 100,
@@ -591,9 +591,9 @@ const ARANWebsite = () => {
         <ClientsHoneyComb
           title={translation.clients.title}
           clients={[
-            { logo: "/assets/unicoil-logo.jpg" },
-            { logo: "/assets/alayuni-logo.jpg" },
-            { logo: "/assets/tamimi-logo.jpg" },
+            { logo: "/media/unicoil-logo.jpg" },
+            { logo: "/media/alayuni-logo.jpg" },
+            { logo: "/media/tamimi-logo.jpg" },
           ]}
         />
       </Box>
@@ -999,7 +999,7 @@ const ARANWebsite = () => {
               {/* LOGO */}
               <Box
                 component="img"
-                src="/assets/logo.png"
+                src="/logos/logo.png"
                 alt="ARAN Consultancy Logo"
                 sx={{
                   width: 120,

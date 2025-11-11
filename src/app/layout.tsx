@@ -108,16 +108,16 @@ export const metadata: Metadata = {
       "Saudi Arabia's premier contracting company specializing in security services, civil engineering, electrical installations, and mechanical engineering. Delivering excellence across all KSA regions.",
     images: [
       {
-        url: "/assets/logo-2.png",
-        width: 1200,
-        height: 630,
+        url: "/logos/logo-full.png",
+        width: 600,
+        height: 315,
         alt: "ARAN Contracting & Engineering Solutions - Saudi Arabia's Leading Contractor",
         type: "image/jpeg",
       },
       {
-        url: "/assets/logo.png",
-        width: 800,
-        height: 800,
+        url: "/logos/logo.png",
+        width: 300,
+        height: 300,
         alt: "ARAN Logo",
         type: "image/jpeg",
       },
@@ -133,7 +133,7 @@ export const metadata: Metadata = {
     description:
       "Saudi Arabia's premier contracting company - Security, Civil, Electrical & Mechanical Engineering Excellence",
     images: {
-      url: "/assets/logo-2.png",
+      url: "/logos/logo-full.png",
       alt: "ARAN Contracting & Engineering Solutions",
     },
   },
@@ -150,11 +150,11 @@ export const metadata: Metadata = {
   // Icons & Favicons
   icons: {
     icon: [{ url: "/favicon.ico" }],
-    apple: [{ url: "/assets/logo-2.png", sizes: "180x180", type: "image/png" }],
+    apple: [{ url: "/logos/logo-full.png", sizes: "180x180", type: "image/png" }],
     other: [
       {
         rel: "mask-icon",
-        url: "/assets/logo-2.png",
+        url: "/logos/logo-full.png",
       },
     ],
   },
@@ -181,7 +181,7 @@ export const jsonLd = {
   "@context": "https://schema.org",
   "@type": "GeneralContractor",
   name: "ARAN Contracting & Engineering",
-  image: "https://aran-5zwy.vercel.app/assets/logo-2.png",
+  image: "https://aran-5zwy.vercel.app/logos/logo-full.png",
   "@id": "https://aran-5zwy.vercel.app",
   url: "https://aran-5zwy.vercel.app",
   telephone: "+966 56 314 3298", // Add your phone

@@ -78,7 +78,7 @@ const Hero = ({ lang, translation, videos, currentSlide }) => {
       {/* Logo with up-down animation */}
       <Box
         component="img"
-        src="/assets/logo.png"
+        src="/logos/logo.png"
         alt="ARAN Logo"
         sx={{
           position: "absolute",
