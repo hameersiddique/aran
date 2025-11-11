@@ -20,38 +20,38 @@ const ServiceCard = ({ icon, title, description }) => {
     switch (icon) {
       case "👮": // Security
         return [
-          "https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=800&q=80",
-          "https://images.unsplash.com/photo-1554224311-beee2c446dd7?w=800&q=80",
-          "https://images.unsplash.com/photo-1582139329536-e7284fece509?w=800&q=80",
-          "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+          "https://images.unsplash.com/photo-1581568736305-49a04e012c13?w=800&q=80",
+          "https://images.unsplash.com/photo-1566245024852-04fbf7842ce9?w=800&q=80",
+          "https://images.unsplash.com/photo-1652739758426-56a564265f9e?w=800&q=80",
+          "https://images.unsplash.com/photo-1587647069256-6ec77c96c2a4?w=800&q=80",
         ];
       case "🏗️": // Civil Engineering
         return [
-          "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80",
+          "https://images.unsplash.com/photo-1652303713917-2666b8bee507?w=800&q=80",
           "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&q=80",
-          "https://images.unsplash.com/photo-1590496793907-8323f8a60ea2?w=800&q=80",
-          "https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=800&q=80",
+          "https://images.unsplash.com/photo-1531834685032-c34bf0d84c77?w=800&q=80",
+          "https://images.unsplash.com/photo-1684497404598-6e844dff9cde?w=800&q=80",
         ];
       case "⚡": // Electrical Engineering
         return [
-          "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=800&q=80",
-          "https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=800&q=80",
-          "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&q=80",
-          "https://images.unsplash.com/photo-1581092918484-8313f2f2e7e7?w=800&q=80",
+          "https://images.pexels.com/photos/257736/pexels-photo-257736.jpeg",
+          "https://images.pexels.com/photos/5767595/pexels-photo-5767595.jpeg",
+          "https://images.unsplash.com/photo-1625123817473-eede237e097b?",
+          "https://images.unsplash.com/photo-1625123817473-eede237e097b?",
         ];
       case "⚙️": // Mechanical Engineering
         return [
-          "https://images.unsplash.com/photo-1581092921461-eab62e97a780?w=800&q=80",
-          "https://images.unsplash.com/photo-1565043666747-69f6646db940?w=800&q=80",
-          "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=800&q=80",
-          "https://images.unsplash.com/photo-1581093458791-9d42e2e7d1f6?w=800&q=80",
+          "https://images.pexels.com/photos/239419/pexels-photo-239419.jpeg",
+          "https://images.pexels.com/photos/191738/pexels-photo-191738.jpeg",
+          "https://images.pexels.com/photos/2760241/pexels-photo-2760241.jpeg",
+          "https://images.pexels.com/photos/416339/pexels-photo-416339.jpeg",
         ];
       default:
         return [
-          "https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=800&q=80",
-          "https://images.unsplash.com/photo-1554224311-beee2c446dd7?w=800&q=80",
-          "https://images.unsplash.com/photo-1582139329536-e7284fece509?w=800&q=80",
-          "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+          "https://images.pexels.com/photos/239419/pexels-photo-239419.jpeg",
+          "https://images.pexels.com/photos/191738/pexels-photo-191738.jpeg",
+          "https://images.pexels.com/photos/2760241/pexels-photo-2760241.jpeg",
+          "https://images.pexels.com/photos/416339/pexels-photo-416339.jpeg",
         ];
     }
   };
