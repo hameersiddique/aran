@@ -1,0 +1,43 @@
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+import "./globals.css";
+
+export const metadata: Metadata = {
+  title: "ARAN - Premium Consultancy Services | Saudi Arabia",
+  description:
+    "Elite consultancy services across Saudi Arabia. Security, Civil, Electrical & Mechanical Engineering solutions.",
+  keywords:
+    "consultancy, Saudi Arabia, security services, civil engineering, electrical services, mechanical engineering, ARAN",
+  openGraph: {
+    title: "ARAN - Premium Consultancy Services",
+    description: "Elite consultancy services across Saudi Arabia",
+    type: "website",
+  },
+};
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        // style={{ margin: 0, padding: 0 }}
+      >
+        {children}
+      </body>
+    </html>
+  );
+}
