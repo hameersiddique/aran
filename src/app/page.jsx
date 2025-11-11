@@ -982,7 +982,7 @@ const ARANWebsite = () => {
             }}
           >
             {/* === Column 1 === */}
-            <Box sx={{ flex: 1, maxWidth: 300 }}>
+            <Box sx={{ flex: 1, maxWidth: "40%" }}>
               <Typography
                 sx={{
                   color: COLORS.accent.gold,
@@ -1014,7 +1014,7 @@ const ARANWebsite = () => {
             </Box>
 
             {/* === Column 2 === */}
-            <Box sx={{ flex: 1, maxWidth: 200 }}>
+            <Box sx={{ flex: 1, maxWidth: "20%" }}>
               <Typography
                 sx={{
                   color: COLORS.accent.gold,
@@ -1047,7 +1047,7 @@ const ARANWebsite = () => {
             </Box>
 
             {/* === Column 3 === */}
-            <Box sx={{ flex: 1, maxWidth: 250 }}>
+            <Box sx={{ flex: 1, maxWidth: "40%" }}>
               <Typography
                 sx={{
                   color: COLORS.accent.gold,

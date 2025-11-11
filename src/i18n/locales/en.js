@@ -180,11 +180,11 @@ export const en = {
     },
     contactInfo: {
       title: 'Contact Info',
-      location: '📍 Riyadh, Saudi Arabia',
-      phone: '📞 +966 XX XXX XXXX',
-      email: '✉️ info@aran-sa.com'
+      location: '📍 King Fahad Rd. Uhud area, Dammam, KSA',
+      phone: '📞 +966 56 314 3298',
+      email: '✉️ naeem.siddique@aransaudiar.com'
     },
-    copyright: '© 2025 ARAN Contracting. All Rights Reserved.'
+    copyright: '© 2025 ARAN. All Rights Reserved.'
   },
   common: {
     tagline: 'Leading Contracting & Engineering Solutions Across Saudi Arabia',
