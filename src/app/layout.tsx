@@ -3,14 +3,14 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "ARAN - Premium Consultancy Services | Saudi Arabia",
+  title: "ARAN",
   description:
-    "Elite consultancy services across Saudi Arabia. Security, Civil, Electrical & Mechanical Engineering solutions.",
+    "Leading Contracting & Engineering Solutions Across Saudi Arabia",
   keywords:
-    "consultancy, Saudi Arabia, security services, civil engineering, electrical services, mechanical engineering, ARAN",
+    "contracting, Saudi Arabia, security services, civil engineering, electrical services, mechanical engineering, ARAN",
   openGraph: {
-    title: "ARAN - Premium Consultancy Services",
-    description: "Elite consultancy services across Saudi Arabia",
+    title: "ARAN",
+    description: "Elite contracting services across Saudi Arabia",
     type: "website",
   },
 };
