@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   // Basic Metadata
   title: {
     default:
-      "ARAN - Leading Contracting & Engineering Solutions in Saudi Arabia",
+      "ARAN - Leading Contracting & Engineering Solutions Across Saudi Arabia",
     template: "%s | ARAN - Saudi Arabia's Premier Contracting Company",
   },
   description:
@@ -102,7 +102,8 @@ export const metadata: Metadata = {
     locale: "en_SA",
     url: "https://aran-5zwy.vercel.app",
     siteName: "ARAN Contracting & Engineering",
-    title: "ARAN - Leading Contracting & Engineering Solutions in Saudi Arabia",
+    title:
+      "ARAN - Leading Contracting & Engineering Solutions Across Saudi Arabia",
     description:
       "Saudi Arabia's premier contracting company - Security, Civil, Electrical & Mechanical Engineering Excellence",
     images: [
@@ -128,7 +129,8 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@ARAN_KSA", // Replace with your Twitter handle
     creator: "@ARAN_KSA",
-    title: "ARAN - Leading Contracting & Engineering Solutions in Saudi Arabia",
+    title:
+      "ARAN - Leading Contracting & Engineering Solutions Across Saudi Arabia",
     description:
       "Saudi Arabia's premier contracting company - Security, Civil, Electrical & Mechanical Engineering Excellence",
     images: {
