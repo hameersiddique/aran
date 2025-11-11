@@ -23,8 +23,7 @@ export const metadata: Metadata = {
     template: "%s | ARAN - Saudi Arabia's Premier Contracting Company",
   },
   description:
-    "ARAN is Saudi Arabia's leading contracting and engineering company, offering comprehensive solutions in security services, civil engineering, electrical installations and mechanical engineering.",
-
+    "Saudi Arabia's premier contracting company - Security, Civil, Electrical & Mechanical Engineering Excellence",
   // Enhanced Keywords for Google SEO
   keywords: [
     // Core Services
@@ -105,7 +104,7 @@ export const metadata: Metadata = {
     siteName: "ARAN Contracting & Engineering",
     title: "ARAN - Leading Contracting & Engineering Solutions in Saudi Arabia",
     description:
-      "Saudi Arabia's premier contracting company specializing in security services, civil engineering, electrical installations, and mechanical engineering. Delivering excellence across all KSA regions.",
+      "Saudi Arabia's premier contracting company - Security, Civil, Electrical & Mechanical Engineering Excellence",
     images: [
       {
         url: "/logos/logo-full.png",
@@ -150,7 +149,9 @@ export const metadata: Metadata = {
   // Icons & Favicons
   icons: {
     icon: [{ url: "/favicon.ico" }],
-    apple: [{ url: "/logos/logo-full.png", sizes: "180x180", type: "image/png" }],
+    apple: [
+      { url: "/logos/logo-full.png", sizes: "180x180", type: "image/png" },
+    ],
     other: [
       {
         rel: "mask-icon",
@@ -234,7 +235,7 @@ export const jsonLd = {
     name: "Saudi Arabia",
   },
   description:
-    "Leading contracting and engineering company in Saudi Arabia, providing comprehensive solutions in security services, civil engineering, electrical installations and mechanical engineering.",
+    "Saudi Arabia's premier contracting company - Security, Civil, Electrical & Mechanical Engineering Excellence",
 };
 
 const geistSans = Geist({
