@@ -123,7 +123,7 @@ const Hero = ({ lang, translation, videos, currentSlide }) => {
         >
           <Button
             variant="contained"
-            href="#contact"
+            href="/contact"
             sx={{
               px: 4,
               py: 1.5,
@@ -143,7 +143,7 @@ const Hero = ({ lang, translation, videos, currentSlide }) => {
           </Button>
           <Button
             variant="outlined"
-            href="#services"
+            href="/services"
             sx={{
               px: 4,
               py: 1.5,

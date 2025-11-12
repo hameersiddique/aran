@@ -29,10 +29,8 @@ const ClientsHoneyComb = ({ title, clients }) => {
             textAlign: "center",
             fontWeight: 900,
             fontSize: responsive(TYPOGRAPHY.fontSize["2xl"]),
+            color: COLORS.primary.main,
             mb: 8,
-            background: "linear-gradient(135deg, #4a9fd5, #3b9ac7)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
           }}
         >
           {title}

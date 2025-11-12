@@ -32,6 +32,7 @@ export const COLORS = {
         gradient3: 'linear-gradient(180deg, #0a0e27 0%, #050811 100%)',
         gradient4: 'linear-gradient(135deg, rgba(10,14,39,1) 0%, rgba(12,25,60,1) 100%)',
         gradient5: 'linear-gradient(165deg, #0a0e27 0%, #0d1129 30%, #0f1433 60%, #1a1f3a 100%)',
+        gradient6: 'blue'
     },
 
     // White/Transparent Colors
@@ -180,6 +181,12 @@ export const SPACING = {
         md: { mobile: 4, desktop: 5 },
         lg: { mobile: 6, desktop: 10 },
         xl: { mobile: 8, desktop: 12 },
+        '2xl': { mobile: 10, desktop: 14 },
+        '3xl': { mobile: 12, desktop: 16 },
+        '4xl': { mobile: 14, desktop: 18 },
+        '5xl': { mobile: 16, desktop: 20 },
+        '6xl': { mobile: 18, desktop: 22 },
+
     },
 
     // Margins

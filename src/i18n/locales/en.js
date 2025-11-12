@@ -13,26 +13,26 @@ export const en = {
   },
   services: {
     title: 'Our Services',
-    security: {
-      title: 'Security Services',
-      description:
-        'Licensed professional security guards providing comprehensive protection. Our trained personnel ensure safety and peace of mindfor your business operations across Saudi Arabia with 24/7 monitoring and rapid response capabilities.'
-    },
+    // security: {
+    //   title: 'Security Services',
+    //   description:
+    //     'Licensed and professional security guards providing comprehensive protection for businesses and facilities across Saudi Arabia. Our trained personnel ensure safety, reliability, and peace of mind with 24/7 monitoring, access control, and rapid response capabilities.'
+    // },
     civil: {
       title: 'Civil Engineering',
       description:
-        'Expert civil construction services for infrastructure, commercial and residential projects. We deliver turnkey solutions from excavation and structural works to complete finishing with uncompromised quality.'
-    },
-    electrical: {
-      title: 'Electrical Services',
-      description:
-        'Complete electrical installations, maintenance and contracting services. We specialize in power systems, lighting solutions and energy-efficient electrical infrastructure with certified electricians.'
+        'Providing complete civil construction and infrastructure services, including survey, landscaping, and backfilling works. Our expertise covers concrete, block, and plastering jobs; equipment foundations; reinforced duct banks; waterproofing; gypsum, painting, and ceramic works. We also handle the installation of curb stones, interlock tiles, walkways, and complete underground piping and drainage systems—delivering quality and precision at every stage.'
     },
     mechanical: {
       title: 'Mechanical Services',
       description:
-        'Advanced mechanical engineering services including HVAC systems, plumbing and industrial equipment installation. Ensuring optimal performance, efficiency and sustainability for your facilities.'
-    }
+        'Delivering advanced mechanical engineering services including pipe fabrication and welding, steel structure fabrication and erection, cladding and insulation works. We also specialize in the fabrication and erection of piping systems, along with the supply and installation of scaffolding—ensuring efficiency, durability, and adherence to the highest engineering standards.'
+    },
+    electrical: {
+      title: 'Electrical & Telecommunication Services',
+      description:
+        'Offering complete electrical and telecommunication solutions including installation, splicing, termination, testing, and commissioning of LV & MV cables. Our team specializes in street and decorative lighting systems, pre-commissioning of electrical equipment, building and industrial electrical works, and setup of telecom, CCTV, and IPTV networks—ensuring safety, reliability, and cutting-edge performance.'
+    },
   },
   videoGallery: {
     security: {
@@ -147,7 +147,23 @@ export const en = {
     paragraph2:
       'Our professional team combines engineering expertise, advanced technology and a commitment to excellence to deliver civil, electrical, mechanical and security contracting services that exceed expectations.',
     paragraph3:
-      'Fully licensed and certified, ARAN maintains the highest standards of safety, quality and professionalism. Our dedication to innovation and integrity makes us a preferred partner for government and private sector clients alike.'
+      'Fully licensed and certified, ARAN maintains the highest standards of safety, quality and professionalism. Our dedication to innovation and integrity makes us a preferred partner for government and private sector clients alike.',
+    mission: {
+      title: 'Mission',
+      text: 'To perform our clients by the highest level of qualitative construction service with highest level of professionalism, integrity, honesty and fairness in our relationships with our employees, suppliers, subcontractors and professional associates.'
+    },
+    vision: {
+      title: 'Vision',
+      text: 'To be a KSA’s leading Contracting Company by safely and consistently delivering our successful service with client’s satisfaction and highly quality standards. '
+    },
+    quality_policy: {
+      title: 'Quality Policy',
+      text: 'We are committed to meet client satisfaction through excellent performance. To achieve this performance continually improving by measuring and monitoring our performance on all projects through quality standards.'
+    },
+    safety_policy: {
+      title: 'Safety Policy',
+      text: 'We are committed to making safety a top priority for all employees. We integrate safety and risk management into our daily construction activities, ensuring that enhancing management/worker cooperation and positive results at completion.'
+    },
   },
   contact: {
     title: 'Get In Touch',
@@ -182,7 +198,7 @@ export const en = {
       title: 'Contact Info',
       location: '📍 King Fahad Rd. Uhud area, Dammam, KSA',
       phone: '📞 +966 56 314 3298',
-      email: '✉️ naeem.siddique@aransaudiar.com'
+      email: '✉️ info@aransaudiar.com'
     },
     copyright: '© 2025 ARAN. All Rights Reserved.'
   },
