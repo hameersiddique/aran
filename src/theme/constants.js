@@ -1,12 +1,17 @@
-// theme/constants.js
+const white = '#ffffff';
+const black = '#000';
+const primaryBlue = '#25ADE6';
+const secondaryBlue = '#11384D';
 
 // ==================== COLORS ====================
 export const COLORS = {
     // Primary Colors
     primary: {
-        main: '#4a9fd5',
+        main: primaryBlue,
         light: '#3b9ac7',
-        dark: '#2a7fa5',
+        dark: secondaryBlue,
+        white: white,
+        black: black,
         gradient: 'linear-gradient(135deg, #4a9fd5, #3b9ac7)',
     },
 
@@ -21,6 +26,7 @@ export const COLORS = {
 
     // Background Colors
     background: {
+        white: white,
         dark: '#0a0e27',
         darker: '#050811',
         medium: '#0d1129',
@@ -28,16 +34,22 @@ export const COLORS = {
         lighter: '#1a1f3a',
         // Gradients
         gradient1: 'linear-gradient(180deg, #1a1f3a 0%, #0a0e27 100%)',
-        gradient2: 'linear-gradient(180deg, #0a0e27 0%, #1a1f3a 100%)',
+        // gradient2: 'linear-gradient(180deg, #1a1f3a 0%, #0a0e27 100%)',
         gradient3: 'linear-gradient(180deg, #0a0e27 0%, #050811 100%)',
         gradient4: 'linear-gradient(135deg, rgba(10,14,39,1) 0%, rgba(12,25,60,1) 100%)',
         gradient5: 'linear-gradient(165deg, #0a0e27 0%, #0d1129 30%, #0f1433 60%, #1a1f3a 100%)',
+        fontgradient: `linear-gradient(135deg, ${primaryBlue} 0%, ${secondaryBlue} 100%)`,
+        // gradient1: 'white',
+        gradient2: 'grey.200',
+        // gradient3: 'white',
+        // gradient4: 'white',
+        // gradient5: 'white',
         gradient6: 'blue'
     },
 
     // White/Transparent Colors
     white: {
-        full: '#ffffff',
+        full: white,
         opacity90: 'rgba(255, 255, 255, 0.9)',
         opacity80: 'rgba(255, 255, 255, 0.8)',
         opacity70: 'rgba(255, 255, 255, 0.7)',
@@ -223,7 +235,7 @@ export const BORDER_RADIUS = {
 export const SHADOWS = {
     // Box Shadows
     none: 'none',
-    sm: '0 8px 32px rgba(74, 159, 213, 0.2)',
+    sm: '0 8px 32px rgba(35, 73, 96, 0.2)',
     md: '0 20px 60px rgba(0, 212, 255, 0.3)',
     lg: '0 30px 80px rgba(0, 212, 255, 0.5)',
     xl: '-20px 0 60px rgba(0, 0, 0, 0.8)',

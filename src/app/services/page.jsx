@@ -5,6 +5,7 @@ import ServiceCard from "../../components/ServiceCard";
 import { useLanguage } from "../LayoutClient";
 import { COLORS, TYPOGRAPHY, SPACING, responsive } from "../../theme/constants";
 import { getDirectionSx } from "../../utils/languageHelpers";
+import { Building2, Settings, Zap } from "lucide-react";
 
 export default function ServicesPage() {
   const { lang, translation } = useLanguage();
@@ -16,19 +17,37 @@ export default function ServicesPage() {
     //   description: translation.services.security.description,
     // },
     {
-      icon: "🏗️",
+      icon: Building2,
       title: translation.services.civil.title,
       description: translation.services.civil.description,
+      images: [
+        "https://images.unsplash.com/photo-1652303713917-2666b8bee507?w=800&q=80",
+        "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&q=80",
+        "https://images.unsplash.com/photo-1531834685032-c34bf0d84c77?w=800&q=80",
+        "https://images.unsplash.com/photo-1684497404598-6e844dff9cde?w=800&q=80",
+      ],
     },
     {
-      icon: "⚙️",
+      icon: Settings,
       title: translation.services.mechanical.title,
       description: translation.services.mechanical.description,
+      images: [
+        "https://images.pexels.com/photos/239419/pexels-photo-239419.jpeg",
+        "https://images.pexels.com/photos/191738/pexels-photo-191738.jpeg",
+        "https://images.pexels.com/photos/2760241/pexels-photo-2760241.jpeg",
+        "https://images.pexels.com/photos/416339/pexels-photo-416339.jpeg",
+      ],
     },
     {
-      icon: "⚡",
+      icon: Zap,
       title: translation.services.electrical.title,
       description: translation.services.electrical.description,
+      images: [
+        "https://images.pexels.com/photos/257736/pexels-photo-257736.jpeg",
+        "https://images.pexels.com/photos/5767595/pexels-photo-5767595.jpeg",
+        "https://images.unsplash.com/photo-1625123817473-eede237e097b?w=800&q=80",
+        "https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=800&q=80",
+      ],
     },
   ];
 
@@ -36,7 +55,7 @@ export default function ServicesPage() {
     <Box
       sx={{
         py: responsive(SPACING.padding["6xl"]),
-        background: COLORS.background.gradient2,
+        backgroundColor: "grey.100",
         minHeight: "100vh",
         ...getDirectionSx(lang),
       }}
@@ -44,10 +63,16 @@ export default function ServicesPage() {
       <Box sx={{ px: responsive(SPACING.padding.lg) }}>
         <Typography
           sx={{
-            textAlign: "center",
-            fontWeight: TYPOGRAPHY.fontWeight.black,
+            color: COLORS.primary.dark,
+            fontWeight: TYPOGRAPHY.fontWeight.bold,
             fontSize: responsive(TYPOGRAPHY.fontSize["2xl"]),
-            color: COLORS.primary.main,
+            background: COLORS.background.fontgradient,
+            backgroundClip: "text",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            textAlign: "center",
+            letterSpacing: "1px",
+            textTransform: "uppercase",
             mb: 8,
           }}
         >
@@ -74,9 +99,12 @@ export default function ServicesPage() {
                 }}
               >
                 <ServiceCard
+                  key={index}
                   icon={service.icon}
                   title={service.title}
                   description={service.description}
+                  images={service.images}
+                  index={index}
                 />
               </Box>
             ))}

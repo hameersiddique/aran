@@ -35,9 +35,10 @@ export default function Header({ lang, setLang, translation }) {
 
   const navItems = [
     { label: translation.nav.home, href: "/" },
+    { label: translation.nav.about, href: "/about" },
     { label: translation.nav.services, href: "/services" },
     { label: translation.nav.projects, href: "/projects" },
-    { label: translation.nav.about, href: "/about" },
+    { label: translation.nav.gallery, href: "/gallery" },
     { label: translation.nav.contact, href: "/contact" },
   ];
 
@@ -50,8 +51,9 @@ export default function Header({ lang, setLang, translation }) {
           left: 0,
           right: 0,
           zIndex: Z_INDEX.header,
-          background: COLORS.overlay.dark,
-          backdropFilter: blur(20),
+          background: "rgba(255, 255, 255, 0.25)",
+          backdropFilter: "blur(25px)",
+          WebkitBackdropFilter: "blur(25px)",
           borderBottom: `2px solid ${COLORS.border.primary}`,
           px: responsive(SPACING.padding.xs),
           py: 2,
@@ -65,7 +67,7 @@ export default function Header({ lang, setLang, translation }) {
           <Box
             sx={{
               borderRadius: BORDER_RADIUS.sm,
-              p: 2,
+              p: 0,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -77,8 +79,9 @@ export default function Header({ lang, setLang, translation }) {
               src="/logos/logo-full.png"
               alt="ARAN Logo"
               sx={{
-                width: 100,
+                width: 150,
                 height: "auto",
+                filter: "drop-shadow(0 0 12px rgba(255,255,255,0.75))",
               }}
             />
           </Box>
@@ -97,10 +100,19 @@ export default function Header({ lang, setLang, translation }) {
                 bgcolor: COLORS.white.opacity35,
               },
               fontSize: responsive(TYPOGRAPHY.fontSize["2xs"]),
+
+              // Text outline only
+              textShadow: `
+                -1px -1px 0 #000,
+                1px -1px 0 #000,
+                -1px  1px 0 #000,
+                1px  1px 0 #000
+              `,
             }}
           >
             EN
           </Button>
+
           <Button
             variant={lang === "ar" ? "contained" : "outlined"}
             onClick={() => setLang("ar")}
@@ -113,6 +125,14 @@ export default function Header({ lang, setLang, translation }) {
                 bgcolor: COLORS.white.opacity35,
               },
               fontSize: responsive(TYPOGRAPHY.fontSize["2xs"]),
+
+              // Text outline only
+              textShadow: `
+                -1px -1px 0 #000,
+                1px -1px 0 #000,
+                -1px  1px 0 #000,
+                1px  1px 0 #000
+              `,
             }}
           >
             AR
@@ -125,7 +145,7 @@ export default function Header({ lang, setLang, translation }) {
               ml: 3,
               background: COLORS.primary.light,
               "&:hover": {
-                background: COLORS.border.primaryHover,
+                background: COLORS.primary.dark,
               },
             }}
           >
@@ -143,7 +163,7 @@ export default function Header({ lang, setLang, translation }) {
             width: 380,
             left: "auto",
             right: 0,
-            background: COLORS.background.gradient5,
+            background: COLORS.background.gradient3,
             backdropFilter: blur(40),
             borderLeft: `1px solid ${COLORS.white.opacity06}`,
             boxShadow: SHADOWS.combined.drawer,
@@ -226,7 +246,7 @@ export default function Header({ lang, setLang, translation }) {
                   borderRadius: BORDER_RADIUS.md,
                   position: "relative",
                   overflow: "hidden",
-                  background: COLORS.white.opacity02,
+                  background: COLORS.background.gradient5,
                   border: `1px solid ${COLORS.white.opacity05}`,
                   backdropFilter: blur(10),
                   transition: TRANSITIONS.allBounce,

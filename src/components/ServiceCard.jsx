@@ -4,175 +4,202 @@ import {
   COLORS,
   TYPOGRAPHY,
   SPACING,
-  BORDER_RADIUS,
-  SHADOWS,
-  TRANSITIONS,
-  Z_INDEX,
   responsive,
-  blur,
-} from "../theme/constants";
+} from "./../theme/constants";
 
-const ServiceCard = ({ icon, title, description }) => {
+const ServiceCard = ({ icon: Icon, title, description, images, index }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-  // Background images for each category - using icon to identify category
-  const getBackgroundImages = () => {
-    switch (icon) {
-      case "👮": // Security
-        return [
-          "https://images.unsplash.com/photo-1581568736305-49a04e012c13?w=800&q=80",
-          "https://images.unsplash.com/photo-1566245024852-04fbf7842ce9?w=800&q=80",
-          "https://images.unsplash.com/photo-1652739758426-56a564265f9e?w=800&q=80",
-          "https://images.unsplash.com/photo-1587647069256-6ec77c96c2a4?w=800&q=80",
-        ];
-      case "🏗️": // Civil Engineering
-        return [
-          "https://images.unsplash.com/photo-1652303713917-2666b8bee507?w=800&q=80",
-          "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&q=80",
-          "https://images.unsplash.com/photo-1531834685032-c34bf0d84c77?w=800&q=80",
-          "https://images.unsplash.com/photo-1684497404598-6e844dff9cde?w=800&q=80",
-        ];
-      case "⚡": // Electrical Engineering
-        return [
-          "https://images.pexels.com/photos/257736/pexels-photo-257736.jpeg",
-          "https://images.pexels.com/photos/5767595/pexels-photo-5767595.jpeg",
-          "https://images.unsplash.com/photo-1625123817473-eede237e097b?",
-          "https://images.unsplash.com/photo-1625123817473-eede237e097b?",
-        ];
-      case "⚙️": // Mechanical Engineering
-        return [
-          "https://images.pexels.com/photos/239419/pexels-photo-239419.jpeg",
-          "https://images.pexels.com/photos/191738/pexels-photo-191738.jpeg",
-          "https://images.pexels.com/photos/2760241/pexels-photo-2760241.jpeg",
-          "https://images.pexels.com/photos/416339/pexels-photo-416339.jpeg",
-        ];
-      default:
-        return [
-          "https://images.pexels.com/photos/239419/pexels-photo-239419.jpeg",
-          "https://images.pexels.com/photos/191738/pexels-photo-191738.jpeg",
-          "https://images.pexels.com/photos/2760241/pexels-photo-2760241.jpeg",
-          "https://images.pexels.com/photos/416339/pexels-photo-416339.jpeg",
-        ];
-    }
-  };
-
-  const images = getBackgroundImages();
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 3000); // Change image every 3 seconds
+    }, 3000);
 
     return () => clearInterval(interval);
   }, [images.length]);
 
   return (
     <Card
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       sx={{
-        background:
-          "linear-gradient(135deg, rgba(74, 159, 213, 0.1), rgba(59, 154, 199, 0.1))",
-        border: "2px solid rgba(74, 159, 213, 0.3)",
-        borderRadius: 4,
-        p: 3,
+        background: "#ffffff",
+        border: "1px solid rgba(74, 159, 213, 0.15)",
+        borderRadius: 3,
         height: "100%",
         display: "flex",
         flexDirection: "column",
         position: "relative",
         overflow: "hidden",
-        transition: "all 0.4s ease",
+        transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+        boxShadow: "0 4px 20px rgba(0, 0, 0, 0.08)",
         "&:hover": {
-          transform: "translateY(-15px) scale(1.02)",
-          borderColor: "#4a9fd5",
-          boxShadow: "0 20px 60px rgba(74, 159, 213, 0.4)",
+          transform: "translateY(-12px)",
+          borderColor: "rgba(74, 159, 213, 0.4)",
+          boxShadow: "0 24px 48px rgba(74, 159, 213, 0.2)",
         },
-      }}
-    >
-      {/* Rotating Background Images */}
-      <Box
-        sx={{
+        "&::before": {
+          content: '""',
           position: "absolute",
           top: 0,
           left: 0,
           right: 0,
-          bottom: 0,
-          backgroundImage: `url(${images[currentImageIndex]})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          opacity: 0.25,
-          transition: "background-image 1s ease-in-out",
-          zIndex: 0,
+          height: "4px",
+          background: "linear-gradient(90deg, #4a9fd5 0%, #3b9ac7 100%)",
+          transform: isHovered ? "scaleX(1)" : "scaleX(0)",
+          transformOrigin: "left",
+          transition: "transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+        },
+      }}
+    >
+      {/* Image Container with Overlay */}
+      <Box
+        sx={{
+          position: "relative",
+          height: 240,
+          overflow: "hidden",
         }}
-      />
+      >
+        {/* Background Image */}
+        <Box
+          sx={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundImage: `url(${images[currentImageIndex]})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            transition: "all 0.8s cubic-bezier(0.4, 0, 0.2, 1)",
+            transform: isHovered ? "scale(1.1)" : "scale(1)",
+          }}
+        />
 
-      {/* Content Overlay */}
+        {/* Gradient Overlay */}
+        <Box
+          sx={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: isHovered
+              ? "linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.7) 100%)"
+              : "linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.5) 100%)",
+            transition: "all 0.4s ease",
+          }}
+        />
+
+        {/* Icon Overlay */}
+        <Box
+          sx={{
+            position: "absolute",
+            top: 20,
+            left: 20,
+            width: 64,
+            height: 64,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "rgba(255, 255, 255, 0.95)",
+            color: COLORS.primary.main,
+            borderRadius: 2,
+            boxShadow: "0 8px 24px rgba(0, 0, 0, 0.15)",
+            transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+            transform: isHovered ? "scale(1.1) rotate(5deg)" : "scale(1)",
+          }}
+        >
+          <Icon />
+        </Box>
+
+        {/* Image Indicators */}
+        <Box
+          sx={{
+            position: "absolute",
+            bottom: 16,
+            left: "50%",
+            transform: "translateX(-50%)",
+            display: "flex",
+            gap: 1,
+            zIndex: 2,
+          }}
+        >
+          {images.map((_, idx) => (
+            <Box
+              key={idx}
+              sx={{
+                width: currentImageIndex === idx ? 24 : 8,
+                height: 8,
+                borderRadius: 4,
+                backgroundColor:
+                  currentImageIndex === idx
+                    ? "#ffffff"
+                    : "rgba(255, 255, 255, 0.4)",
+                transition: "all 0.3s ease",
+                boxShadow:
+                  currentImageIndex === idx
+                    ? "0 2px 8px rgba(0,0,0,0.3)"
+                    : "none",
+              }}
+            />
+          ))}
+        </Box>
+      </Box>
+
+      {/* Content Section */}
       <CardContent
         sx={{
           flexGrow: 1,
           display: "flex",
           flexDirection: "column",
-          position: "relative",
-          zIndex: 1,
+          p: 4,
+          backgroundColor: "#ffffff",
         }}
       >
-        <Box
-          sx={{
-            fontSize: responsive(TYPOGRAPHY.fontSize["2xl"]),
-            mb: 2,
-            color: "#4a9fd5",
-          }}
-        >
-          {icon}
-        </Box>
         <Typography
+          variant="h5"
           sx={{
-            fontSize: responsive(TYPOGRAPHY.fontSize["md"]),
-            color: COLORS.accent.gold,
+            fontSize: "1.5rem",
+            color: "#1a1a1a",
             mb: 2,
             fontWeight: 700,
+            letterSpacing: "-0.02em",
+            lineHeight: 1.3,
+            transition: "color 0.3s ease",
+            "&:hover": {
+              color: "#4a9fd5",
+            },
           }}
         >
           {title}
         </Typography>
+
         <Typography
           sx={{
-            color: "rgba(255, 255, 255, 0.9)",
-            lineHeight: 1.8,
-            fontSize: responsive(TYPOGRAPHY.fontSize["sm"]),
+            color: "#666666",
+            lineHeight: 1.7,
+            fontSize: "0.95rem",
             flexGrow: 1,
-            textShadow: "0 2px 4px rgba(0,0,0,0.3)",
+            letterSpacing: "0.01em",
           }}
         >
           {description}
         </Typography>
-      </CardContent>
 
-      {/* Image Indicators */}
-      <Box
-        sx={{
-          position: "absolute",
-          bottom: 16,
-          right: 16,
-          display: "flex",
-          gap: 1,
-          zIndex: 2,
-        }}
-      >
-        {images.map((_, index) => (
-          <Box
-            key={index}
-            sx={{
-              width: 8,
-              height: 8,
-              borderRadius: "50%",
-              backgroundColor:
-                currentImageIndex === index
-                  ? "#4a9fd5"
-                  : "rgba(255, 255, 255, 0.3)",
-              transition: "all 0.3s ease",
-            }}
-          />
-        ))}
-      </Box>
+        {/* Bottom Accent Line */}
+        <Box
+          sx={{
+            width: isHovered ? "100%" : "40px",
+            height: "3px",
+            background: "linear-gradient(90deg, #4a9fd5 0%, #3b9ac7 100%)",
+            borderRadius: 2,
+            mt: 3,
+            transition: "width 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+          }}
+        />
+      </CardContent>
     </Card>
   );
 };

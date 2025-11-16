@@ -55,7 +55,7 @@ const Hero = ({ lang, translation, videos, currentSlide }) => {
               objectFit: "cover",
               opacity: currentSlide === index ? 1 : 0,
               transition: "opacity 0.5s ease-in-out",
-              filter: "brightness(0.4)",
+              filter: "brightness(0.75)",
             }}
           />
         ))}
@@ -69,8 +69,8 @@ const Hero = ({ lang, translation, videos, currentSlide }) => {
           left: 0,
           width: "100%",
           height: "100%",
-          background:
-            "linear-gradient(135deg, rgba(0, 212, 255, 0.3), rgba(139, 92, 246, 0.3))",
+          // background:
+          //   "linear-gradient(135deg, rgba(0, 212, 255, 0.3), rgba(139, 92, 246, 0.3))",
           zIndex: 1,
         }}
       />
@@ -101,13 +101,18 @@ const Hero = ({ lang, translation, videos, currentSlide }) => {
         sx={{ position: "relative", zIndex: 2, textAlign: "center", mt: 20 }}
       >
         <Typography
-          variant="h6"
           sx={{
             color: "white",
             mb: 4,
             fontSize: responsive(TYPOGRAPHY.fontSize["xl"]),
 
-            textShadow: "2px 2px 10px rgba(0, 0, 0, 0.8)",
+            // clean black outline (no glow/shadow)
+            textShadow: `
+      -1px -1px 0 #000,
+       1px -1px 0 #000,
+      -1px  1px 0 #000,
+       1px  1px 0 #000
+    `,
           }}
         >
           {translation.common.tagline}
@@ -128,7 +133,6 @@ const Hero = ({ lang, translation, videos, currentSlide }) => {
               px: 4,
               py: 1.5,
               fontSize: responsive(TYPOGRAPHY.fontSize["xs"]),
-
               fontWeight: 700,
               borderRadius: 50,
               background: "linear-gradient(135deg, #4a9fd5, #3b9ac7)",
@@ -150,11 +154,11 @@ const Hero = ({ lang, translation, videos, currentSlide }) => {
               fontSize: responsive(TYPOGRAPHY.fontSize["xs"]),
               fontWeight: 700,
               borderRadius: 50,
-              borderColor: "#ffd700",
+              borderColor: COLORS.primary.main,
               color: "white",
               borderWidth: 2,
               "&:hover": {
-                background: "#ffd700",
+                // background: "#ffd700",
                 color: "#0a0e27",
                 borderWidth: 2,
                 transform: "translateY(-5px)",

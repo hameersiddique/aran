@@ -24,20 +24,25 @@ export default function ProjectsPage() {
   return (
     <Box
       sx={{
-        py: responsive(SPACING.padding['6xl']),
-        background: COLORS.background.gradient2,
+        py: responsive(SPACING.padding["6xl"]),
+        backgroundColor: "grey.100",
         minHeight: "100vh",
       }}
     >
       <Container maxWidth="lg">
         <Typography
           sx={{
-            textAlign: "center",
-            fontWeight: 900,
+            color: COLORS.primary.dark,
+            fontWeight: TYPOGRAPHY.fontWeight.bold,
             fontSize: responsive(TYPOGRAPHY.fontSize["2xl"]),
+            background: COLORS.background.fontgradient,
+            backgroundClip: "text",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            textAlign: "center",
+            letterSpacing: "1px",
+            textTransform: "uppercase",
             mb: 2,
-            color: COLORS.primary.main,
-            direction: lang === "ar" ? "rtl" : "ltr",
           }}
         >
           {translation.projects.title}
@@ -46,9 +51,9 @@ export default function ProjectsPage() {
         <Typography
           sx={{
             textAlign: "center",
-            color: COLORS.white.full,
+            color: COLORS.primary.black,
             mb: 8,
-            fontSize: responsive(TYPOGRAPHY.fontSize["lg"]),
+            fontSize: responsive(TYPOGRAPHY.fontSize["md"]),
           }}
         >
           {translation.projects.subtitle}

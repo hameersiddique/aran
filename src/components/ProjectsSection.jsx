@@ -1,39 +1,17 @@
 "use client";
 
 import { LocationOn } from "@mui/icons-material";
-import {
-  Box,
-  Card,
-  CardContent,
-  Chip,
-  Container,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
+import { Box, Card, CardContent, Typography } from "@mui/material";
 import { useState } from "react";
 import { COLORS, TYPOGRAPHY, responsive } from "../theme/constants";
-import { getFlexDirectionSx, getTextAlignSx } from "../utils/languageHelpers";
-
-const categoryColors = {
-  civil: "#e74c3c",
-  electrical: "#f39c12",
-  mechanical: "#4a9fd5",
-  security: "#34495e",
-};
+import { getTextAlignSx } from "../utils/languageHelpers";
 
 const ProjectsSection = ({ lang, translation, projects }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-
-  // Show 1 card in mobile, 3 in desktop
-  const cardsToShow = isMobile ? 1 : 3;
-
   return (
-    <Box sx={{ display: "flex", alignItems: "center", gap: 3 }}>
+    <Box sx={{ display: "flex", alignItems: "center", gap: 3, p: 1 }}>
       <Box
         sx={{
           flex: 1,
@@ -47,8 +25,6 @@ const ProjectsSection = ({ lang, translation, projects }) => {
           const actualIndex = (currentIndex + idx) % projects.length;
           const isHovered = hoveredIndex === actualIndex;
 
-          const primaryCategory = project.categories?.[0] || "civil";
-
           return (
             <Card
               key={actualIndex}
@@ -56,21 +32,19 @@ const ProjectsSection = ({ lang, translation, projects }) => {
               onMouseLeave={() => setHoveredIndex(null)}
               sx={{
                 height: "100%",
-                background:
-                  "linear-gradient(135deg, rgba(26, 31, 58, 0.9), rgba(15, 20, 40, 0.95))",
+                background: "#ffffff",
                 borderRadius: 3,
-                border: `2px solid ${
-                  isHovered
-                    ? categoryColors[primaryCategory]
-                    : "rgba(74, 159, 213, 0.2)"
-                }`,
+                border: "1px solid rgba(74, 159, 213, 0.15)",
                 transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
                 position: "relative",
                 overflow: "hidden",
-                transform: isHovered ? "translateY(-8px)" : "translateY(0)",
+                direction: lang === "ar" ? "rtl" : "ltr",
+                transform: isHovered
+                  ? "translateY(-8px) scale(1.02)"
+                  : "translateY(0)",
                 boxShadow: isHovered
-                  ? `0 20px 40px ${categoryColors[primaryCategory]}40`
-                  : "0 4px 12px rgba(0, 0, 0, 0.3)",
+                  ? "0 20px 40px rgba(74, 159, 213, 0.25)"
+                  : "0 4px 20px rgba(0, 0, 0, 0.08)",
                 "&::before": {
                   content: '""',
                   position: "absolute",
@@ -78,80 +52,95 @@ const ProjectsSection = ({ lang, translation, projects }) => {
                   left: 0,
                   right: 0,
                   height: "4px",
-                  background: `linear-gradient(90deg, ${categoryColors[primaryCategory]}, transparent)`,
+                  background:
+                    "linear-gradient(90deg, #4a9fd5 0%, #3b9ac7 100%)",
+                  transform: isHovered ? "scaleX(1)" : "scaleX(0)",
+                  transformOrigin: lang === "ar" ? "right" : "left",
+                  transition: "transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+                },
+                "&::after": {
+                  content: '""',
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  background:
+                    "linear-gradient(135deg, rgba(74, 159, 213, 0.03), transparent)",
                   opacity: isHovered ? 1 : 0,
-                  transition: "opacity 0.3s ease",
+                  transition: "opacity 0.4s ease",
+                  pointerEvents: "none",
                 },
               }}
             >
               <CardContent
                 sx={{
-                  p: 3,
+                  p: 4,
                   height: "100%",
                   display: "flex",
                   flexDirection: "column",
+                  position: "relative",
+                  zIndex: 1,
                 }}
               >
+                {/* Company Name with Badge Style */}
                 <Box
                   sx={{
                     display: "flex",
-                    flexWrap: "wrap",
-                    gap: 1,
-                    mb: 2,
+                    alignItems: "center",
+                    mb: 3,
+                    pb: 2,
+                    borderBottom: "2px solid rgba(74, 159, 213, 0.1)",
                   }}
                 >
-                  {project.categories?.map((category) => (
-                    <Chip
-                      key={category}
-                      label={
-                        category.charAt(0).toUpperCase() + category.slice(1)
-                      }
-                      size="small"
-                      sx={{
-                        background: `${categoryColors[category]}20`,
-                        color: categoryColors[category],
-                        border: `1px solid ${categoryColors[category]}40`,
-                        fontWeight: 600,
-                        fontSize: responsive(TYPOGRAPHY.fontSize["md"]),
-                      }}
-                    />
-                  ))}
-                </Box>
-
-                <Box sx={{ display: "flex", alignItems: "flex-start", mb: 2 }}>
+                  <Box
+                    sx={{
+                      width: 4,
+                      height: 24,
+                      background:
+                        "linear-gradient(180deg, #4a9fd5 0%, #3b9ac7 100%)",
+                      borderRadius: 1,
+                      flexShrink: 0,
+                      [lang === "ar" ? "ml" : "mr"]: 2,
+                      transition: "height 0.3s ease",
+                      ...(isHovered && { height: 32 }),
+                    }}
+                  />
                   <Typography
                     sx={{
-                      color: COLORS.accent.gold,
+                      color: COLORS.primary.black,
                       fontWeight: TYPOGRAPHY.fontWeight.bold,
                       fontSize: responsive(TYPOGRAPHY.fontSize["sm"]),
                       lineHeight: 1.3,
+                      letterSpacing: "-0.01em",
                       ...getTextAlignSx(lang),
-                      width: "100%",
                     }}
                   >
                     {project.company_name}
                   </Typography>
                 </Box>
 
+                {/* Description */}
                 <Box
                   sx={{
                     display: "flex",
                     alignItems: "flex-start",
-                    mb: 2,
+                    mb: 3,
                     flex: 1,
                   }}
                 >
                   <Typography
                     sx={{
                       fontSize: responsive(TYPOGRAPHY.fontSize["sm"]),
-                      color: "#fff",
-                      mt: 1,
+                      color: "grey.600",
+                      lineHeight: 1.7,
                       overflow: "hidden",
                       display: "-webkit-box",
                       WebkitBoxOrient: "vertical",
                       WebkitLineClamp: 4,
                       textOverflow: "ellipsis",
                       whiteSpace: "normal",
+                      letterSpacing: "0.01em",
                       ...getTextAlignSx(lang),
                       width: "100%",
                     }}
@@ -160,36 +149,43 @@ const ProjectsSection = ({ lang, translation, projects }) => {
                   </Typography>
                 </Box>
 
+                {/* Location Section */}
                 <Box
                   sx={{
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "space-between",
-                    pt: 2,
-                    borderTop: "1px solid rgba(74, 159, 213, 0.5)",
+                    pt: 3,
                     mt: "auto",
-                    ...getFlexDirectionSx(lang),
+                    borderTop: "1px solid rgba(74, 159, 213, 0.12)",
                   }}
                 >
                   <Box
                     sx={{
                       display: "flex",
                       alignItems: "center",
-                      ...getFlexDirectionSx(lang),
+                      gap: 1,
+                      padding: "8px 16px",
+                      background: isHovered
+                        ? "rgba(74, 159, 213, 0.1)"
+                        : "rgba(74, 159, 213, 0.05)",
+                      borderRadius: 2,
+                      transition: "all 0.3s ease",
                     }}
                   >
                     <LocationOn
                       sx={{
-                        color: categoryColors[primaryCategory],
-                        [lang === "ar" ? "ml" : "mr"]: 1,
-                        fontSize: responsive(TYPOGRAPHY.fontSize["sm"]),
+                        color: "#ef4444",
+                        fontSize: responsive(TYPOGRAPHY.fontSize["md"]),
+                        transition: "transform 0.3s ease",
+                        ...(isHovered && { transform: "scale(1.1)" }),
                       }}
                     />
                     <Typography
                       sx={{
-                        color: "rgba(255, 255, 255, 0.7)",
-                        fontSize: responsive(TYPOGRAPHY.fontSize["xs"]),
-                        fontWeight: TYPOGRAPHY.fontWeight.medium,
+                        color: "#1a1a1a",
+                        fontSize: responsive(TYPOGRAPHY.fontSize["sm"]),
+                        fontWeight: TYPOGRAPHY.fontWeight.semibold,
                         ...getTextAlignSx(lang),
                       }}
                     >
@@ -197,6 +193,22 @@ const ProjectsSection = ({ lang, translation, projects }) => {
                     </Typography>
                   </Box>
                 </Box>
+
+                {/* Decorative Corner Element */}
+                <Box
+                  sx={{
+                    position: "absolute",
+                    top: 0,
+                    [lang === "ar" ? "left" : "right"]: 0,
+                    width: 60,
+                    height: 60,
+                    background:
+                      "linear-gradient(135deg, transparent 50%, rgba(74, 159, 213, 0.08) 50%)",
+                    opacity: isHovered ? 1 : 0,
+                    transition: "opacity 0.3s ease",
+                    pointerEvents: "none",
+                  }}
+                />
               </CardContent>
             </Card>
           );

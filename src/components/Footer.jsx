@@ -7,9 +7,11 @@ import { getTextAlign, getTextAlignSx } from "../utils/languageHelpers";
 
 export default function Footer({ lang, translation }) {
   const navItems = [
+    { label: translation.nav.home, href: "/" },
+    { label: translation.nav.about, href: "/about" },
     { label: translation.nav.services, href: "/services" },
     { label: translation.nav.projects, href: "/projects" },
-    { label: translation.nav.about, href: "/about" },
+    { label: translation.nav.gallery, href: "/gallery" },
     { label: translation.nav.contact, href: "/contact" },
   ];
 
