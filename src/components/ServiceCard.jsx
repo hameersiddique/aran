@@ -86,8 +86,8 @@ const ServiceCard = ({ icon: Icon, title, description, images, index }) => {
             right: 0,
             bottom: 0,
             background: isHovered
-              ? "linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.7) 100%)"
-              : "linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.5) 100%)",
+              ? "linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.5) 100%)"
+              : "linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 100%)",
             transition: "all 0.4s ease",
           }}
         />

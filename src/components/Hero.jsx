@@ -1,19 +1,49 @@
 "use client";
 
 import { Box, Button, Container, Typography } from "@mui/material";
-import {
-  COLORS,
-  TYPOGRAPHY,
-  SPACING,
-  BORDER_RADIUS,
-  SHADOWS,
-  TRANSITIONS,
-  Z_INDEX,
-  responsive,
-  blur,
-} from "../theme/constants";
+import { useState, useEffect, useRef } from "react";
+import { COLORS, TYPOGRAPHY, responsive } from "../theme/constants";
+import { useLanguage } from "./../app/LayoutClient";
 
-const Hero = ({ lang, translation, videos, currentSlide }) => {
+const Hero = () => {
+  const { lang, translation } = useLanguage();
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const videoRefs = useRef([]);
+
+  const videos = [
+    "/videos/civil-1.mp4",
+    "/videos/mechanical-2.mp4",
+    "/videos/electrical-1.mp4",
+    "/videos/civil-2.mp4",
+    "/videos/electrical-2.mp4",
+    "/videos/mechanical-1.mp4",
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % videos.length);
+    }, 3500);
+    return () => clearInterval(timer);
+  }, [videos.length]);
+
+  useEffect(() => {
+    videoRefs.current.forEach((video, index) => {
+      if (video) {
+        if (index === currentSlide) {
+          // Start electrical-2.mp4 at 2 seconds, others at 0
+          if (videos[index] === "/videos/electrical-2.mp4") {
+            video.currentTime = 2;
+          } else {
+            video.currentTime = 0;
+          }
+          video.play();
+        } else {
+          video.pause();
+        }
+      }
+    });
+  }, [currentSlide, videos]);
+
   return (
     <Box
       id="home"
@@ -44,7 +74,8 @@ const Hero = ({ lang, translation, videos, currentSlide }) => {
             key={index}
             component="video"
             src={video}
-            autoPlay
+            ref={(el) => (videoRefs.current[index] = el)}
+            autoPlay={index === 0}
             loop
             muted
             playsInline
@@ -55,13 +86,12 @@ const Hero = ({ lang, translation, videos, currentSlide }) => {
               objectFit: "cover",
               opacity: currentSlide === index ? 1 : 0,
               transition: "opacity 0.5s ease-in-out",
-              filter: "brightness(0.75)",
             }}
           />
         ))}
       </Box>
 
-      {/* Overlay */}
+      {/* Minimal Overlay */}
       <Box
         sx={{
           position: "absolute",
@@ -69,8 +99,6 @@ const Hero = ({ lang, translation, videos, currentSlide }) => {
           left: 0,
           width: "100%",
           height: "100%",
-          // background:
-          //   "linear-gradient(135deg, rgba(0, 212, 255, 0.3), rgba(139, 92, 246, 0.3))",
           zIndex: 1,
         }}
       />
@@ -82,16 +110,17 @@ const Hero = ({ lang, translation, videos, currentSlide }) => {
         alt="ARAN Logo"
         sx={{
           position: "absolute",
-          top: "10%", // starting position
+          top: "10%",
           left: "50%",
           transform: "translateX(-50%)",
           zIndex: 2,
           width: { xs: 100, md: 150 },
           mt: 15,
           animation: "moveUpDown 3s ease-in-out infinite",
+          filter: "drop-shadow(0 4px 12px rgba(0,0,0,0.5))",
           "@keyframes moveUpDown": {
             "0%, 100%": { transform: "translate(-50%, 0)" },
-            "50%": { transform: "translate(-50%, 20px)" }, // moves down by 20px
+            "50%": { transform: "translate(-50%, 20px)" },
           },
         }}
       />
@@ -105,14 +134,8 @@ const Hero = ({ lang, translation, videos, currentSlide }) => {
             color: "white",
             mb: 4,
             fontSize: responsive(TYPOGRAPHY.fontSize["xl"]),
-
-            // clean black outline (no glow/shadow)
-            textShadow: `
-      -1px -1px 0 #000,
-       1px -1px 0 #000,
-      -1px  1px 0 #000,
-       1px  1px 0 #000
-    `,
+            textShadow: "0 2px 20px rgba(0,0,0,0.8), 0 0 40px rgba(0,0,0,0.5)",
+            fontWeight: 700,
           }}
         >
           {translation.common.tagline}
@@ -154,11 +177,13 @@ const Hero = ({ lang, translation, videos, currentSlide }) => {
               fontSize: responsive(TYPOGRAPHY.fontSize["xs"]),
               fontWeight: 700,
               borderRadius: 50,
-              borderColor: COLORS.primary.main,
+              borderColor: "white",
               color: "white",
               borderWidth: 2,
+              backgroundColor: "rgba(0,0,0,0.2)",
+              backdropFilter: "blur(10px)",
               "&:hover": {
-                // background: "#ffd700",
+                backgroundColor: "white",
                 color: "#0a0e27",
                 borderWidth: 2,
                 transform: "translateY(-5px)",

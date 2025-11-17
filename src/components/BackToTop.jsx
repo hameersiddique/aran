@@ -29,10 +29,10 @@ export default function BackToTop() {
         position: "fixed",
         bottom: 35,
         right: 35,
-        background: COLORS.white.opacity12,
+        background: COLORS.primary.main,
         backdropFilter: blur(12),
         border: `1px solid ${COLORS.white.opacity35}`,
-        color: COLORS.white.full,
+        color: COLORS.primary.dark,
         zIndex: Z_INDEX.fab,
         "&:hover": {
           background: COLORS.white.opacity22,

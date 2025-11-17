@@ -93,21 +93,14 @@ export default function Header({ lang, setLang, translation }) {
             onClick={() => setLang("en")}
             sx={{
               minWidth: 50,
-              bgcolor: lang === "en" ? COLORS.white.opacity25 : "transparent",
+              backgroundColor: lang === "en" ? "grey.400" : "grey.300",
               borderColor: COLORS.border.white,
-              color: COLORS.white.full,
+              color: COLORS.primary.black,
               "&:hover": {
-                bgcolor: COLORS.white.opacity35,
+                backgroundColor: COLORS.primary.white,
+                color: COLORS.primary.black,
               },
               fontSize: responsive(TYPOGRAPHY.fontSize["2xs"]),
-
-              // Text outline only
-              textShadow: `
-                -1px -1px 0 #000,
-                1px -1px 0 #000,
-                -1px  1px 0 #000,
-                1px  1px 0 #000
-              `,
             }}
           >
             EN
@@ -118,21 +111,14 @@ export default function Header({ lang, setLang, translation }) {
             onClick={() => setLang("ar")}
             sx={{
               minWidth: 50,
-              bgcolor: lang === "ar" ? COLORS.white.opacity25 : "transparent",
+              backgroundColor: lang === "ar" ? "grey.400" : "grey.300",
               borderColor: COLORS.border.white,
-              color: COLORS.white.full,
+              color: COLORS.primary.black,
               "&:hover": {
-                bgcolor: COLORS.white.opacity35,
+                backgroundColor: COLORS.primary.white,
+                color: COLORS.primary.black,
               },
               fontSize: responsive(TYPOGRAPHY.fontSize["2xs"]),
-
-              // Text outline only
-              textShadow: `
-                -1px -1px 0 #000,
-                1px -1px 0 #000,
-                -1px  1px 0 #000,
-                1px  1px 0 #000
-              `,
             }}
           >
             AR

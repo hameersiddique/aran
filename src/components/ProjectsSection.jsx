@@ -184,7 +184,7 @@ const ProjectsSection = ({ lang, translation, projects }) => {
                     <Typography
                       sx={{
                         color: "#1a1a1a",
-                        fontSize: responsive(TYPOGRAPHY.fontSize["sm"]),
+                        fontSize: responsive(TYPOGRAPHY.fontSize["xs"]),
                         fontWeight: TYPOGRAPHY.fontWeight.semibold,
                         ...getTextAlignSx(lang),
                       }}

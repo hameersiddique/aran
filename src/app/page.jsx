@@ -1,76 +1,46 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import {
   Box,
-  Container,
-  Typography,
-  Grid,
+  Button,
   Card,
   CardContent,
-  Button,
+  Container,
+  Grid,
   Paper,
+  Typography,
 } from "@mui/material";
-import Hero from "../components/Hero";
 import {
-  CheckCircle2,
-  Users2,
-  Zap,
   Award,
-  TrendingUp,
-  Heart,
-  Wrench,
-  Building2,
-  Factory,
-  GraduationCap,
-  Hotel,
-  Plane,
-  Droplets,
-  Target,
-  Handshake,
-  Shield,
-  Building,
-  Home,
   Briefcase,
-  School,
-  UserCheck,
+  Building,
+  Building2,
+  Droplets,
+  Factory,
+  Handshake,
+  Heart,
+  Home,
   Hospital,
+  Plane,
+  School,
+  Target,
+  TrendingUp,
+  UserCheck,
+  Users2,
+  Wrench,
+  Zap,
 } from "lucide-react";
-import { useLanguage } from "./LayoutClient";
-import {
-  COLORS,
-  TYPOGRAPHY,
-  SPACING,
-  responsive,
-  SHADOWS,
-} from "../theme/constants";
+import { useState } from "react";
 import ClientsHoneyComb from "../components/ClientsSection";
-import {
-  getTextAlignSx,
-  getFlexDirectionSx,
-  getDirection,
-  getDirectionSx,
-} from "../utils/languageHelpers";
+import Hero from "../components/Hero";
+import { COLORS, responsive, SPACING, TYPOGRAPHY } from "../theme/constants";
+import { getDirection, getTextAlignSx } from "../utils/languageHelpers";
+import { useLanguage } from "./LayoutClient";
 
 export default function PremiumHomePage() {
   const { lang, translation } = useLanguage();
   const [hoveredReason, setHoveredReason] = useState(null);
-  const [currentSlide, setCurrentSlide] = useState(0);
   const [hoveredIndex, setHoveredIndex] = useState(null);
-
-  const videos = [
-    "/media/civil.mp4",
-    "/media/electrical.mp4",
-    "/media/mechanical.mp4",
-    // "/media/security.mp4",
-  ];
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % videos.length);
-    }, 3500);
-    return () => clearInterval(timer);
-  }, [videos.length]);
 
   const whyChooseUsIcons = [
     <Target key="1" size={40} strokeWidth={2} />,
@@ -101,12 +71,7 @@ export default function PremiumHomePage() {
 
   return (
     <Box sx={{ pt: 0, direction: getDirection(lang) }}>
-      <Hero
-        lang={lang}
-        translation={translation}
-        videos={videos}
-        currentSlide={currentSlide}
-      />
+      <Hero />
 
       {/* Who We Are Section */}
       <Box
@@ -846,7 +811,7 @@ export default function PremiumHomePage() {
         sx={{
           py: responsive(SPACING.padding["xl"]),
           backgroundColor: COLORS.background.white,
-          direction: 'ltr'
+          direction: "ltr",
         }}
       >
         <Container maxWidth="lg">
