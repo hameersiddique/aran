@@ -76,12 +76,12 @@ export default function Header({ lang, setLang, translation }) {
           >
             <Box
               component="img"
-              src="/logos/logo-full.png"
+              src="/logos/logo-full-3.png"
               alt="ARAN Logo"
               sx={{
                 width: 150,
                 height: "auto",
-                filter: "drop-shadow(0 0 12px rgba(255,255,255,0.75))",
+                // filter: "drop-shadow(0 0 12px rgba(255,255,255,0.75))",
               }}
             />
           </Box>
