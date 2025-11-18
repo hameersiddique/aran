@@ -9,11 +9,17 @@ import {
   CardMedia,
   Dialog,
   IconButton,
+  Fade,
+  Backdrop,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import {
   Close as CloseIcon,
   ChevronLeft,
   ChevronRight,
+  Fullscreen,
+  Download,
 } from "@mui/icons-material";
 import { useState } from "react";
 import { COLORS, TYPOGRAPHY, SPACING, responsive } from "../../theme/constants";
@@ -21,6 +27,8 @@ import { useLanguage } from "./../LayoutClient";
 
 export default function GalleryPage() {
   const { lang, translation } = useLanguage();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedImage, setSelectedImage] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -31,8 +39,6 @@ export default function GalleryPage() {
     image: `/gallery/${index + 1}.jpg`,
     ...projectObj[key],
   }));
-
-  console.log("galleryData", galleryData);
 
   const categories = [
     {
@@ -99,6 +105,69 @@ export default function GalleryPage() {
     setSelectedImage(filteredImages[prevIndex]);
   };
 
+  const handleFullscreen = () => {
+    if (selectedImage) {
+      const img = document.getElementById("fullscreen-image");
+      if (img && img.requestFullscreen) {
+        img.requestFullscreen();
+      } else if (img && img.webkitRequestFullscreen) {
+        img.webkitRequestFullscreen();
+      }
+    }
+  };
+
+  const handleDownload = () => {
+    if (selectedImage) {
+      const link = document.createElement("a");
+      link.href = selectedImage.image;
+      link.download = `${selectedImage.title}.jpg`;
+      link.click();
+    }
+  };
+
+  // Keyboard navigation
+  const handleKeyDown = (e) => {
+    if (!selectedImage) return;
+    
+    if (e.key === "ArrowRight") {
+      lang === "ar" ? handlePrevious() : handleNext();
+    } else if (e.key === "ArrowLeft") {
+      lang === "ar" ? handleNext() : handlePrevious();
+    } else if (e.key === "Escape") {
+      handleClose();
+    }
+  };
+
+  // Touch handling for mobile swipe
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
+
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+    
+    if (isLeftSwipe) {
+      lang === "ar" ? handlePrevious() : handleNext();
+    }
+    if (isRightSwipe) {
+      lang === "ar" ? handleNext() : handlePrevious();
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -108,6 +177,8 @@ export default function GalleryPage() {
         minHeight: "100vh",
         direction: lang === "ar" ? "rtl" : "ltr",
       }}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
     >
       <Container maxWidth="xl">
         {/* Header */}
@@ -321,17 +392,31 @@ export default function GalleryPage() {
         )}
       </Container>
 
-      {/* Image Dialog/Modal */}
+      {/* Premium Image Viewer Dialog */}
       <Dialog
         open={selectedImage !== null}
         onClose={handleClose}
-        maxWidth="lg"
-        fullWidth
+        maxWidth={false}
+        fullScreen={isMobile}
+        TransitionComponent={Fade}
+        transitionDuration={300}
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+          sx: {
+            backgroundColor: "rgba(0, 0, 0, 0.95)",
+            backdropFilter: "blur(10px)",
+          },
+        }}
         PaperProps={{
           sx: {
-            backgroundColor: "transparent",
+            backgroundColor: "rgba(0, 0, 0, 0.95)",
             boxShadow: "none",
             overflow: "hidden",
+            margin: 0,
+            maxWidth: "100%",
+            maxHeight: "100%",
+            height: isMobile ? "100vh" : "auto",
           },
         }}
       >
@@ -339,127 +424,280 @@ export default function GalleryPage() {
           sx={{
             position: "relative",
             display: "flex",
+            flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            p: 2,
+            minHeight: isMobile ? "100vh" : "90vh",
+            width: "100%",
+            p: isMobile ? 0 : 2,
           }}
+          onTouchStart={onTouchStart}
+          onTouchMove={onTouchMove}
+          onTouchEnd={onTouchEnd}
         >
-          {/* Close Button - Fixed Position */}
-          <IconButton
-            onClick={handleClose}
+          {/* Top Control Bar */}
+          <Box
             sx={{
-              position: "fixed",
-              top: 16,
-              [lang === "ar" ? "left" : "right"]: 16,
-              backgroundColor: "rgba(255, 255, 255, 0.95)",
-              color: "#1a1a1a",
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              p: { xs: 1.5, sm: 2 },
+              background: "linear-gradient(180deg, rgba(0,0,0,0.8) 0%, transparent 100%)",
               zIndex: 1500,
-              "&:hover": {
-                backgroundColor: "#ffffff",
-                transform: "scale(1.1)",
-              },
+              direction: lang === "ar" ? "rtl" : "ltr",
             }}
           >
-            <CloseIcon />
-          </IconButton>
+            {/* Image Counter */}
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 1,
+                backgroundColor: "rgba(255, 255, 255, 0.15)",
+                backdropFilter: "blur(10px)",
+                px: { xs: 1.5, sm: 2 },
+                py: { xs: 0.75, sm: 1 },
+                borderRadius: 2,
+              }}
+            >
+              <Typography
+                sx={{
+                  color: "#ffffff",
+                  fontSize: { xs: "0.85rem", sm: "1rem" },
+                  fontWeight: 600,
+                }}
+              >
+                {currentImageIndex + 1} / {filteredImages.length}
+              </Typography>
+            </Box>
 
-          {/* Previous Button - Fixed Position */}
-          <IconButton
-            onClick={handlePrevious}
-            sx={{
-              position: "fixed",
-              [lang === "ar" ? "right" : "left"]: 16,
-              top: "50%",
-              transform: "translateY(-50%)",
-              backgroundColor: "rgba(255, 255, 255, 0.95)",
-              color: "#1a1a1a",
-              zIndex: 1500,
-              "&:hover": {
-                backgroundColor: "#ffffff",
-                transform: "translateY(-50%) scale(1.1)",
-              },
-            }}
-          >
-            {lang === "ar" ? <ChevronRight /> : <ChevronLeft />}
-          </IconButton>
+            {/* Action Buttons */}
+            <Box
+              sx={{
+                display: "flex",
+                gap: 1,
+              }}
+            >
+              {!isMobile && (
+                <>
+                  <IconButton
+                    onClick={handleFullscreen}
+                    sx={{
+                      backgroundColor: "rgba(255, 255, 255, 0.15)",
+                      backdropFilter: "blur(10px)",
+                      color: "#ffffff",
+                      width: 40,
+                      height: 40,
+                      "&:hover": {
+                        backgroundColor: "rgba(255, 255, 255, 0.25)",
+                        transform: "scale(1.1)",
+                      },
+                      transition: "all 0.3s ease",
+                    }}
+                  >
+                    <Fullscreen />
+                  </IconButton>
 
-          {/* Image */}
+                  <IconButton
+                    onClick={handleDownload}
+                    sx={{
+                      backgroundColor: "rgba(255, 255, 255, 0.15)",
+                      backdropFilter: "blur(10px)",
+                      color: "#ffffff",
+                      width: 40,
+                      height: 40,
+                      "&:hover": {
+                        backgroundColor: "rgba(255, 255, 255, 0.25)",
+                        transform: "scale(1.1)",
+                      },
+                      transition: "all 0.3s ease",
+                    }}
+                  >
+                    <Download />
+                  </IconButton>
+                </>
+              )}
+
+              <IconButton
+                onClick={handleClose}
+                sx={{
+                  backgroundColor: "rgba(255, 255, 255, 0.15)",
+                  backdropFilter: "blur(10px)",
+                  color: "#ffffff",
+                  width: 40,
+                  height: 40,
+                  "&:hover": {
+                    backgroundColor: "rgba(255, 59, 48, 0.8)",
+                    transform: "scale(1.1)",
+                  },
+                  transition: "all 0.3s ease",
+                }}
+              >
+                <CloseIcon />
+              </IconButton>
+            </Box>
+          </Box>
+
+          {/* Navigation Buttons - Desktop Only */}
+          {!isMobile && (
+            <>
+              <IconButton
+                onClick={handlePrevious}
+                sx={{
+                  position: "absolute",
+                  [lang === "ar" ? "right" : "left"]: 24,
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  backgroundColor: "rgba(255, 255, 255, 0.15)",
+                  backdropFilter: "blur(10px)",
+                  color: "#ffffff",
+                  width: 56,
+                  height: 56,
+                  zIndex: 1500,
+                  "&:hover": {
+                    backgroundColor: "rgba(255, 255, 255, 0.25)",
+                    transform: "translateY(-50%) scale(1.15)",
+                  },
+                  transition: "all 0.3s ease",
+                }}
+              >
+                {lang === "ar" ? <ChevronRight fontSize="large" /> : <ChevronLeft fontSize="large" />}
+              </IconButton>
+
+              <IconButton
+                onClick={handleNext}
+                sx={{
+                  position: "absolute",
+                  [lang === "ar" ? "left" : "right"]: 24,
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  backgroundColor: "rgba(255, 255, 255, 0.15)",
+                  backdropFilter: "blur(10px)",
+                  color: "#ffffff",
+                  width: 56,
+                  height: 56,
+                  zIndex: 1500,
+                  "&:hover": {
+                    backgroundColor: "rgba(255, 255, 255, 0.25)",
+                    transform: "translateY(-50%) scale(1.15)",
+                  },
+                  transition: "all 0.3s ease",
+                }}
+              >
+                {lang === "ar" ? <ChevronLeft fontSize="large" /> : <ChevronRight fontSize="large" />}
+              </IconButton>
+            </>
+          )}
+
+          {/* Image Container */}
           {selectedImage && (
             <Box
               sx={{
-                position: "relative",
-                maxHeight: "85vh",
-                borderRadius: 2,
-                overflow: "hidden",
-                boxShadow: "0 20px 60px rgba(0, 0, 0, 0.5)",
-                direction: lang === "ar" ? "rtl" : "ltr",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "100%",
+                height: "100%",
+                px: isMobile ? 0 : 4,
               }}
             >
-              <img
-                src={selectedImage.image}
-                alt={selectedImage.title}
-                style={{
-                  maxWidth: "100%",
-                  maxHeight: "85vh",
-                  display: "block",
-                }}
-              />
               <Box
+                id="fullscreen-image"
                 sx={{
-                  position: "absolute",
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  background:
-                    "linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.9) 100%)",
-                  p: 3,
+                  position: "relative",
+                  width: "100%",
+                  maxWidth: isMobile ? "100%" : "90vw",
+                  maxHeight: isMobile ? "100vh" : "80vh",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
               >
-                <Typography
+                <img
+                  src={selectedImage.image}
+                  alt={selectedImage.title}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: isMobile ? "contain" : "contain",
+                    maxWidth: "100%",
+                    maxHeight: isMobile ? "100vh" : "80vh",
+                    display: "block",
+                  }}
+                />
+
+                {/* Image Info Overlay - Bottom */}
+                <Box
                   sx={{
-                    color: "#ffffff",
-                    fontSize: "1.5rem",
-                    fontWeight: 600,
-                    mb: 1,
-                    textAlign: lang === "ar" ? "right" : "left",
+                    position: "absolute",
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    background: "linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.9) 100%)",
+                    p: { xs: 2, sm: 3 },
                   }}
                 >
-                  {selectedImage.title}
-                </Typography>
-                <Typography
-                  sx={{
-                    color: "rgba(255, 255, 255, 0.8)",
-                    fontSize: "0.9rem",
-                    textTransform: "uppercase",
-                    letterSpacing: "1px",
-                    textAlign: lang === "ar" ? "right" : "left",
-                  }}
-                >
-                  {selectedImage.category}
-                </Typography>
+                  <Typography
+                    sx={{
+                      color: "#ffffff",
+                      fontSize: { xs: "1.1rem", sm: "1.5rem" },
+                      fontWeight: 600,
+                      mb: 0.5,
+                      textAlign: lang === "ar" ? "right" : "left",
+                    }}
+                  >
+                    {selectedImage.title}
+                  </Typography>
+                  <Typography
+                    sx={{
+                      color: "rgba(255, 255, 255, 0.7)",
+                      fontSize: { xs: "0.8rem", sm: "0.9rem" },
+                      textTransform: "uppercase",
+                      letterSpacing: "1px",
+                      textAlign: lang === "ar" ? "right" : "left",
+                    }}
+                  >
+                    {selectedImage.category}
+                  </Typography>
+                </Box>
               </Box>
+
+              {/* Mobile Swipe Indicator */}
+              {isMobile && (
+                <Box
+                  sx={{
+                    position: "absolute",
+                    bottom: 80,
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    display: "flex",
+                    gap: 1,
+                    zIndex: 1400,
+                  }}
+                >
+                  {filteredImages.map((_, idx) => (
+                    <Box
+                      key={idx}
+                      sx={{
+                        width: idx === currentImageIndex ? 24 : 8,
+                        height: 8,
+                        borderRadius: 4,
+                        backgroundColor: idx === currentImageIndex 
+                          ? "rgba(255, 255, 255, 0.9)" 
+                          : "rgba(255, 255, 255, 0.3)",
+                        transition: "all 0.3s ease",
+                      }}
+                    />
+                  ))}
+                </Box>
+              )}
             </Box>
           )}
-
-          {/* Next Button - Fixed Position */}
-          <IconButton
-            onClick={handleNext}
-            sx={{
-              position: "fixed",
-              [lang === "ar" ? "left" : "right"]: 16,
-              top: "50%",
-              transform: "translateY(-50%)",
-              backgroundColor: "rgba(255, 255, 255, 0.95)",
-              color: "#1a1a1a",
-              zIndex: 1500,
-              "&:hover": {
-                backgroundColor: "#ffffff",
-                transform: "translateY(-50%) scale(1.1)",
-              },
-            }}
-          >
-            {lang === "ar" ? <ChevronLeft /> : <ChevronRight />}
-          </IconButton>
         </Box>
       </Dialog>
     </Box>
