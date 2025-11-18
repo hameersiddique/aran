@@ -76,7 +76,7 @@ export default function Header({ lang, setLang, translation }) {
           >
             <Box
               component="img"
-              src="/logos/logo-full-3.png"
+              src="/logos/logo-full-3.PNG"
               alt="ARAN Logo"
               sx={{
                 width: 150,
