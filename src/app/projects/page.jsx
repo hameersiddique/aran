@@ -8,7 +8,7 @@ import {
   responsive,
 } from "./../../theme/constants";
 import { useLanguage } from "../LayoutClient";
-import ProjectsSection from "../../components/ProjectsSection";
+import ProjectCard from "../../components/ProjectCard";
 
 export default function ProjectsPage() {
   const { lang, translation } = useLanguage();
@@ -59,11 +59,18 @@ export default function ProjectsPage() {
           {translation.projects.subtitle}
         </Typography>
 
-        <ProjectsSection
-          lang={lang}
-          translation={translation}
-          projects={projects}
-        />
+        {/* Grid Layout for Project Cards */}
+        <Box
+          sx={{
+            display: "grid",
+            gridTemplateColumns: { xs: "1fr", md: "repeat(3, 1fr)" },
+            gap: 3,
+          }}
+        >
+          {projects.map((project) => (
+            <ProjectCard key={project.id} project={project} lang={lang} />
+          ))}
+        </Box>
       </Container>
     </Box>
   );

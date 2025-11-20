@@ -1,23 +1,33 @@
-import { Card, CardContent, Box, Typography } from "@mui/material";
-import { useState, useEffect } from "react";
-import {
-  COLORS,
-  TYPOGRAPHY,
-  SPACING,
-  responsive,
-} from "./../theme/constants";
+import { Card, CardContent, Box, Typography, Skeleton } from "@mui/material";
+import { useState, useEffect, useCallback } from "react";
+import Image from "next/image";
+import { COLORS, TYPOGRAPHY, SPACING, responsive } from "./../theme/constants";
 
 const ServiceCard = ({ icon: Icon, title, description, images, index }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  // Preload next image
+  useEffect(() => {
+    if (images[currentImageIndex + 1] || images[0]) {
+      const nextImage = new window.Image();
+      nextImage.src = images[(currentImageIndex + 1) % images.length];
+    }
+  }, [currentImageIndex, images]);
 
   useEffect(() => {
     const interval = setInterval(() => {
+      setImageLoaded(false);
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
     }, 3000);
 
     return () => clearInterval(interval);
   }, [images.length]);
+
+  const handleImageLoad = useCallback(() => {
+    setImageLoaded(true);
+  }, []);
 
   return (
     <Card
@@ -61,21 +71,46 @@ const ServiceCard = ({ icon: Icon, title, description, images, index }) => {
           overflow: "hidden",
         }}
       >
-        {/* Background Image */}
+        {/* Skeleton Loader */}
+        {!imageLoaded && (
+          <Skeleton
+            variant="rectangular"
+            width="100%"
+            height="100%"
+            animation="wave"
+            sx={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              bgcolor: "grey.300",
+            }}
+          />
+        )}
+
+        {/* Next.js Image Component */}
         <Box
           sx={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundImage: `url(${images[currentImageIndex]})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            transition: "all 0.8s cubic-bezier(0.4, 0, 0.2, 1)",
-            transform: isHovered ? "scale(1.1)" : "scale(1)",
+            position: "relative",
+            width: "100%",
+            height: "100%",
           }}
-        />
+        >
+          <Image
+            src={images[currentImageIndex]}
+            alt={`${title} - Image ${currentImageIndex + 1}`}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            style={{
+              objectFit: "cover",
+              transition: "all 0.8s cubic-bezier(0.4, 0, 0.2, 1)",
+              transform: isHovered ? "scale(1.1)" : "scale(1)",
+              opacity: imageLoaded ? 1 : 0,
+            }}
+            onLoad={handleImageLoad}
+            quality={75}
+            priority={index === 0 && currentImageIndex === 0}
+          />
+        </Box>
 
         {/* Gradient Overlay */}
         <Box
@@ -89,6 +124,7 @@ const ServiceCard = ({ icon: Icon, title, description, images, index }) => {
               ? "linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.5) 100%)"
               : "linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 100%)",
             transition: "all 0.4s ease",
+            pointerEvents: "none",
           }}
         />
 
@@ -109,6 +145,7 @@ const ServiceCard = ({ icon: Icon, title, description, images, index }) => {
             boxShadow: "0 8px 24px rgba(0, 0, 0, 0.15)",
             transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
             transform: isHovered ? "scale(1.1) rotate(5deg)" : "scale(1)",
+            zIndex: 2,
           }}
         >
           <Icon />
@@ -160,6 +197,7 @@ const ServiceCard = ({ icon: Icon, title, description, images, index }) => {
       >
         <Typography
           variant="h5"
+          component="h3"
           sx={{
             fontSize: "1.5rem",
             color: "#1a1a1a",
